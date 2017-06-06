@@ -42,6 +42,14 @@ if (!req.http.Fastly-SSL) {
 }
 
 sub vcl_fetch {
+
+# Only cache certain URL paths
+if (req.url !~ "^/(elections|persons|parties)") {
+  set beresp.ttl = 0s;
+  set beresp.grace = 0s;
+  return(pass);
+}
+
 #FASTLY fetch
 
   if ((beresp.status == 500 || beresp.status == 503) && req.restarts < 1 && (req.request == "GET" || req.request == "HEAD")) {
