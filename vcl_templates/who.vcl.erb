@@ -10,7 +10,6 @@ backend F_who {
   .ssl = true;
   .min_tls_version = "1.2";
   .ssl_cert_hostname = "<%= config.fetch('ssl_host') %>";
-  .ssl_sni_hostname = "<%= config.fetch('ssl_sni') %>";
 
   .probe = {
     .request =
